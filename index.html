@@ -1,0 +1,2853 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع النصوص المميز - أدوات متكاملة للنصوص</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --card-bg: #ffffff;
+            --body-bg: #f1f5f9;
+            --border: #e2e8f0;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: var(--body-bg);
+            color: #334155;
+            line-height: 1.6;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* الهيدر */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--secondary);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 5px;
+            overflow-x: auto;
+            max-width: 800px;
+        }
+        
+        .tab-btn {
+            padding: 10px 18px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        
+        .tab-btn:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab-btn.active {
+            color: var(--dark);
+            background-color: white;
+        }
+        
+        /* المحتوى الرئيسي */
+        main {
+            padding: 2.5rem 0;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section-title i {
+            color: var(--primary);
+        }
+        
+        /* البطاقات */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        /* أدوات الإدخال العامة */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .input-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: border 0.3s;
+            background-color: var(--light);
+        }
+        
+        .input-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        textarea.input-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slider {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary-dark);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slider-value {
+            font-weight: 700;
+            color: var(--primary-dark);
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        
+        /* الأزرار */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background-color: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #d97706;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        /* منطقة النتائج */
+        .result-container {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            min-height: 150px;
+            border: 2px dashed var(--border);
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .result-title {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        .char-count {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* تخصيص علامات التبويب */
+        #textRepeater .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+        
+        #textTransformer .transform-options,
+        #encryption .encryption-options,
+        #specialEffects .transform-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .transform-btn, .encryption-btn {
+            padding: 15px;
+            background-color: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .transform-btn:hover, .encryption-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .transform-btn i, .encryption-btn i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .transform-btn span, .encryption-btn span {
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        /* نمط إيموجي النص */
+        .emoji-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .emoji-preview {
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: var(--light);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+        
+        /* نمط النص المعطّل */
+        .glitch-preview {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--primary-dark);
+            text-shadow: 2px 2px 0 var(--accent), -2px -2px 0 var(--success);
+            letter-spacing: 2px;
+        }
+        
+        /* محول النص المزخرف بشكل خاص */
+        .special-text-preview {
+            font-size: 2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        
+        /* رموز سريعة */
+        .quick-symbols {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: var(--light);
+            border-radius: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .symbol-btn {
+            padding: 8px 12px;
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        
+        .symbol-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* إعدادات التشفير */
+        .encryption-settings {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        
+        .setting-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .setting-item label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .key-input {
+            width: 70%;
+            padding: 10px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        /* الفوتر */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* الإشعارات */
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            padding: 16px 24px;
+            background-color: var(--success);
+            color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification.error {
+            background-color: var(--danger);
+        }
+        
+        .notification.warning {
+            background-color: var(--warning);
+        }
+        
+        .notification.info {
+            background-color: var(--info);
+        }
+        
+        /* التجاوب */
+        @media (max-width: 1200px) {
+            .nav-tabs {
+                max-width: 700px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-tabs {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .emoji-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .transform-options, .encryption-options {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .transform-options, .encryption-options {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-magic"></i>
+                <h1>موقع <span>النصوص المميز</span></h1>
+            </div>
+            <div class="nav-tabs" id="navTabs">
+                <button class="tab-btn active" data-tab="textRepeater">
+                    <i class="fas fa-redo"></i>
+                    <span>مكرر النصوص</span>
+                </button>
+                <button class="tab-btn" data-tab="textTransformer">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>محول النصوص</span>
+                </button>
+                <button class="tab-btn" data-tab="emojiText">
+                    <i class="fas fa-smile"></i>
+                    <span>نص الإيموجي</span>
+                </button>
+                <button class="tab-btn" data-tab="glitchText">
+                    <i class="fas fa-random"></i>
+                    <span>نص معطّل</span>
+                </button>
+                <button class="tab-btn" data-tab="textDecorator">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>مزخرف النصوص</span>
+                </button>
+                <button class="tab-btn" data-tab="specialEffects">
+                    <i class="fas fa-star"></i>
+                    <span>تأثيرات خاصة</span>
+                </button>
+                <button class="tab-btn" data-tab="encryption">
+                    <i class="fas fa-lock"></i>
+                    <span>التشفير</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- علامة التبويب: مكرر النصوص -->
+        <section id="textRepeater" class="tab-content active">
+            <h2 class="section-title">
+                <i class="fas fa-redo"></i>
+                مكرر النصوص
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="repeatText">أدخل النص هنا...</label>
+                    <textarea id="repeatText" class="input-control" placeholder="اكتب النص الذي تريد تكراره هنا">alambrator</textarea>
+                </div>
+                
+                <div class="options-grid">
+                    <div class="input-group">
+                        <label for="separator">الفاصل بين التكرارات:</label>
+                        <select id="separator" class="input-control">
+                            <option value=" ">مسافة (فارغ)</option>
+                            <option value=",">فاصلة (,)</option>
+                            <option value="-">شرطة (-)</option>
+                            <option value="|">خط عمودي (|)</option>
+                            <option value="\n">سطر جديد</option>
+                            <option value="\n\n">سطرين جديدين</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="repeatCount">عدد التكرارات: <span id="repeatCountValue">10</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="repeatCount" class="slider" min="1" max="100" value="10">
+                            <span class="slider-value" id="repeatCountDisplay">10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>خيارات إضافية:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="addLineBreak" checked>
+                                <label for="addLineBreak">إضافة سطر جديد بعد كل مجموعة</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="addNumbers">
+                                <label for="addNumbers">إضافة أرقام قبل كل تكرار</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- رموز سريعة -->
+                <div class="input-group">
+                    <label>رموز سريعة:</label>
+                    <div class="quick-symbols" id="repeaterSymbols"></div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="repeatBtn" class="btn btn-primary">
+                        <i class="fas fa-play-circle"></i>
+                        تكرار
+                    </button>
+                    <button id="copyRepeatBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="clearRepeatBtn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        مسح الكل
+                    </button>
+                </div>
+                
+                <div class="result-container" id="repeatResult">
+                    النتيجة ستظهر هنا بعد التكرار...
+                </div>
+            </div>
+        </section>
+        
+        <!-- علامة التبويب: محول النصوص -->
+        <section id="textTransformer" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-exchange-alt"></i>
+                محول النصوص
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="transformText">النص المدخل:</label>
+                    <textarea id="transformText" class="input-control" placeholder="اكتب النص الذي تريد تحويله هنا">ALAMBRATOR</textarea>
+                </div>
+                
+                <!-- رموز سريعة -->
+                <div class="input-group">
+                    <label>رموز سريعة:</label>
+                    <div class="quick-symbols" id="transformerSymbols"></div>
+                </div>
+                
+                <div class="transform-options">
+                    <div class="transform-btn" data-transform="reverse">
+                        <i class="fas fa-retweet"></i>
+                        <span>عكس النص</span>
+                    </div>
+                    <div class="transform-btn" data-transform="uppercase">
+                        <i class="fas fa-text-height"></i>
+                        <span>نص كبير</span>
+                    </div>
+                    <div class="transform-btn" data-transform="lowercase">
+                        <i class="fas fa-text-height fa-rotate-180"></i>
+                        <span>نص صغير</span>
+                    </div>
+                    <div class="transform-btn" data-transform="alternating">
+                        <i class="fas fa-random"></i>
+                        <span>متبادل الحجم</span>
+                    </div>
+                    <div class="transform-btn" data-transform="upsideDown">
+                        <i class="fas fa-undo"></i>
+                        <span>رأساً على عقب</span>
+                    </div>
+                    <div class="transform-btn" data-transform="mirror">
+                        <i class="fas fa-mirror"></i>
+                        <span>مرآة</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>خيارات إضافية:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="removeSpaces">
+                            <label for="removeSpaces">إزالة المسافات</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="removeDuplicate">
+                            <label for="removeDuplicate">إزالة التكرارات</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addSymbols">
+                            <label for="addSymbols">إضافة رموز خاصة</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="transformBtn" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i>
+                        تحويل النص
+                    </button>
+                    <button id="copyTransformBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="clearTransformBtn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        مسح الكل
+                    </button>
+                </div>
+                
+                <div class="result-container" id="transformResult">
+                    النتيجة ستظهر هنا بعد التحويل...
+                </div>
+            </div>
+        </section>
+        
+        <!-- علامة التبويب: نص الإيموجي -->
+        <section id="emojiText" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-smile"></i>
+                نص الإيموجي
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="emojiInput">النص المدخل:</label>
+                    <input type="text" id="emojiInput" class="input-control" placeholder="اكتب النص الذي تريد تحويله إلى إيموجي" value="AI">
+                </div>
+                
+                <div class="emoji-container">
+                    <div class="emoji-preview" id="emojiPreview">🤖</div>
+                    <div class="input-group" style="flex: 1;">
+                        <label for="emojiType">نوع الإيموجي:</label>
+                        <select id="emojiType" class="input-control">
+                            <option value="faces">وجوه 😀</option>
+                            <option value="animals">حيوانات 🐶</option>
+                            <option value="food">طعام 🍕</option>
+                            <option value="activities">أنشطة ⚽</option>
+                            <option value="travel">سفر 🚗</option>
+                            <option value="objects">أشياء 💡</option>
+                            <option value="symbols">رموز ❤️</option>
+                            <option value="flags">أعلام 🏳️</option>
+                            <option value="custom">مخصص (كتابة بالإيموجي)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- رموز سريعة للإيموجي -->
+                <div class="input-group">
+                    <label>رموز سريعة للإيموجي:</label>
+                    <div class="quick-symbols" id="emojiQuickSymbols"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="emojiThickness">سمك الإيموجي: <span id="thicknessValue">5</span></label>
+                    <div class="slider-container">
+                        <input type="range" id="emojiThickness" class="slider" min="1" max="10" value="5">
+                        <span class="slider-value" id="thicknessDisplay">5</span>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="generateEmojiBtn" class="btn btn-primary">
+                        <i class="fas fa-robot"></i>
+                        إنشاء نص الإيموجي
+                    </button>
+                    <button id="copyEmojiBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="randomEmojiBtn" class="btn btn-secondary">
+                        <i class="fas fa-dice"></i>
+                        إيموجي عشوائي
+                    </button>
+                    <button id="emojiWriterBtn" class="btn btn-secondary">
+                        <i class="fas fa-keyboard"></i>
+                        كتابة بالإيموجي
+                    </button>
+                </div>
+                
+                <div class="result-container" id="emojiResult">
+                    نص الإيموجي سيظهر هنا...
+                </div>
+            </div>
+        </section>
+        
+        <!-- علامة التبويب: نص معطّل -->
+        <section id="glitchText" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-random"></i>
+                مولد النص المعطّل
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="glitchInput">النص المدخل:</label>
+                    <input type="text" id="glitchInput" class="input-control" placeholder="اكتب النص الذي تريد تعطيله" value="alamdratolr">
+                </div>
+                
+                <div class="glitch-preview" id="glitchPreview">alamdratolr</div>
+                
+                <!-- رموز سريعة -->
+                <div class="input-group">
+                    <label>رموز سريعة:</label>
+                    <div class="quick-symbols" id="glitchSymbols"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="glitchIntensity">شدة التعطيل: <span id="intensityValue">5</span></label>
+                    <div class="slider-container">
+                        <input type="range" id="glitchIntensity" class="slider" min="1" max="10" value="5">
+                        <span class="slider-value" id="intensityDisplay">5</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>خيارات التعطيل:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="glitchUp" checked>
+                            <label for="glitchUp">تعطيل للأعلى</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="glitchMiddle">
+                            <label for="glitchMiddle">تعطيل في المنتصف</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="glitchDown" checked>
+                            <label for="glitchDown">تعطيل للأسفل</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="generateGlitchBtn" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i>
+                        إنشاء النص المعطّل
+                    </button>
+                    <button id="copyGlitchBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="animateGlitchBtn" class="btn btn-secondary">
+                        <i class="fas fa-play"></i>
+                        تشغيل التحريك
+                    </button>
+                </div>
+                
+                <div class="result-container" id="glitchResult">
+                    النص المعطّل سيظهر هنا...
+                </div>
+            </div>
+        </section>
+        
+        <!-- علامة التبويب: مزخرف النصوص -->
+        <section id="textDecorator" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-paint-brush"></i>
+                مزخرف النصوص
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="decoratorInput">النص المدخل:</label>
+                    <textarea id="decoratorInput" class="input-control" placeholder="اكتب النص الذي تريد تزيينه">مرحبا بك في موقع تزيين النصوص</textarea>
+                </div>
+                
+                <!-- رموز التزيين السريعة -->
+                <div class="input-group">
+                    <label>رموز التزيين السريعة:</label>
+                    <div class="quick-symbols" id="decoratorSymbols"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label>أنماط التزيين:</label>
+                    <div class="styles-grid" id="stylesGrid"></div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="generateDecoratorBtn" class="btn btn-primary">
+                        <i class="fas fa-magic"></i>
+                        توليد النص المزخرف
+                    </button>
+                    <button id="copyDecoratorBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="clearDecoratorBtn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        مسح الكل
+                    </button>
+                </div>
+                
+                <div class="result-container" id="decoratorResult">
+                    النص المزخرف سيظهر هنا...
+                </div>
+            </div>
+        </section>
+        
+        <!-- علامة التبويب: تأثيرات خاصة -->
+        <section id="specialEffects" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                تأثيرات خاصة
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="specialInput">النص المدخل:</label>
+                    <input type="text" id="specialInput" class="input-control" placeholder="اكتب النص الذي تريد تطبيق التأثيرات عليه" value="alambrator">
+                </div>
+                
+                <!-- معاينة التأثير الخاص -->
+                <div class="special-text-preview" id="specialPreview">alambrator</div>
+                
+                <!-- رموز التزيين الخاصة -->
+                <div class="input-group">
+                    <label>رموز خاصة للتزيين:</label>
+                    <div class="quick-symbols" id="specialSymbols"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label>تأثيرات خاصة:</label>
+                    <div class="transform-options">
+                        <div class="transform-btn" data-effect="zalgotext">
+                            <i class="fas fa-ghost"></i>
+                            <span>نص زالغو</span>
+                        </div>
+                        <div class="transform-btn" data-effect="symbolBorder">
+                            <i class="fas fa-border-all"></i>
+                            <span>إطار بالرموز</span>
+                        </div>
+                        <div class="transform-btn" data-effect="diagonal">
+                            <i class="fas fa-arrows-alt-h"></i>
+                            <span>نص مائل</span>
+                        </div>
+                        <div class="transform-btn" data-effect="doubleText">
+                            <i class="fas fa-layer-group"></i>
+                            <span>نص مزدوج</span>
+                        </div>
+                        <div class="transform-btn" data-effect="asciiArt">
+                            <i class="fas fa-image"></i>
+                            <span>فن ASCII</span>
+                        </div>
+                        <div class="transform-btn" data-effect="rainbow">
+                            <i class="fas fa-rainbow"></i>
+                            <span>نص قوس قزح</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="generateSpecialBtn" class="btn btn-primary">
+                        <i class="fas fa-magic"></i>
+                        إنشاء النص الخاص
+                    </button>
+                    <button id="copySpecialBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="clearSpecialBtn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        مسح الكل
+                    </button>
+                </div>
+                
+                <div class="result-container" id="specialResult">
+                    النص الخاص سيظهر هنا...
+                </div>
+            </div>
+        </section>
+        
+        <!-- علامة التبويب: التشفير -->
+        <section id="encryption" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-lock"></i>
+                تشفير وفك تشفير النصوص
+            </h2>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label for="encryptionText">النص المدخل:</label>
+                    <textarea id="encryptionText" class="input-control" placeholder="اكتب النص الذي تريد تشفيره أو فك تشفيره">رسالة سرية</textarea>
+                </div>
+                
+                <!-- رموز سريعة للتشفير -->
+                <div class="input-group">
+                    <label>رموز سريعة:</label>
+                    <div class="quick-symbols" id="encryptionQuickSymbols"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label>أنواع التشفير:</label>
+                    <div class="encryption-options">
+                        <div class="encryption-btn" data-encryption="caesar">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>تشفير قيصر<br><small>إزاحة أبجدية</small></span>
+                        </div>
+                        <div class="encryption-btn" data-encryption="atbash">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>شفرة أتباش<br><small>عكس الأبجدية</small></span>
+                        </div>
+                        <div class="encryption-btn" data-encryption="base64">
+                            <i class="fas fa-code"></i>
+                            <span>Base64<br><small>ترميز قاعدة 64</small></span>
+                        </div>
+                        <div class="encryption-btn" data-encryption="rot13">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>ROT13<br><small>إزاحة 13 حرف</small></span>
+                        </div>
+                        <div class="encryption-btn" data-encryption="vigenere">
+                            <i class="fas fa-key"></i>
+                            <span>فيجنير<br><small>مفتاح متعدد</small></span>
+                        </div>
+                        <div class="encryption-btn" data-encryption="morse">
+                            <i class="fas fa-signal"></i>
+                            <span>شفرة مورس<br><small>نقاط وشرطات</small></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- إعدادات التشفير -->
+                <div class="encryption-settings" id="encryptionSettings">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary);">إعدادات التشفير:</h3>
+                    
+                    <div id="caesarSettings" class="encryption-setting">
+                        <div class="setting-item">
+                            <label for="caesarShift">مقدار الإزاحة:</label>
+                            <input type="number" id="caesarShift" class="key-input" min="1" max="25" value="3">
+                        </div>
+                    </div>
+                    
+                    <div id="vigenereSettings" class="encryption-setting" style="display: none;">
+                        <div class="setting-item">
+                            <label for="vigenereKey">المفتاح السري:</label>
+                            <input type="text" id="vigenereKey" class="key-input" placeholder="أدخل المفتاح السري" value="SECRET">
+                        </div>
+                    </div>
+                    
+                    <div id="morseSettings" class="encryption-setting" style="display: none;">
+                        <div class="setting-item">
+                            <label>خيارات مورس:</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="morseSeparator" checked>
+                                    <label for="morseSeparator">فصل الحروف بمسافة</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="morseSound">
+                                    <label for="morseSound">تشغيل صوت مورس</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="encryptBtn" class="btn btn-primary">
+                        <i class="fas fa-lock"></i>
+                        تشفير النص
+                    </button>
+                    <button id="decryptBtn" class="btn btn-info">
+                        <i class="fas fa-unlock"></i>
+                        فك التشفير
+                    </button>
+                    <button id="copyEncryptionBtn" class="btn btn-success">
+                        <i class="far fa-copy"></i>
+                        نسخ النتيجة
+                    </button>
+                    <button id="clearEncryptionBtn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i>
+                        مسح الكل
+                    </button>
+                </div>
+                
+                <div class="result-container" id="encryptionResult">
+                    النص المشفر أو المفكوك سيظهر هنا...
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                <p>© 2023 موقع النصوص المميز. جميع الحقوق محفوظة.</p>
+                <p>تم التصميم باستخدام HTML, CSS و JavaScript</p>
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-question-circle"></i> المساعدة</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> الخصوصية</a>
+                <a href="#"><i class="fas fa-envelope"></i> اتصل بنا</a>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>تم النسخ بنجاح!</span>
+    </div>
+
+    <script>
+        // ====================== العناصر العامة ======================
+        const notification = document.getElementById('notification');
+        
+        // إظهار الإشعار
+        function showNotification(message, type = 'success') {
+            const icon = notification.querySelector('i');
+            const text = notification.querySelector('span');
+            
+            text.textContent = message;
+            notification.className = 'notification';
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+                notification.classList.add('show');
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+                notification.classList.add('show', 'error');
+            } else if (type === 'warning') {
+                icon.className = 'fas fa-exclamation-triangle';
+                notification.classList.add('show', 'warning');
+            } else if (type === 'info') {
+                icon.className = 'fas fa-info-circle';
+                notification.classList.add('show', 'info');
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // نسخ النص إلى الحافظة
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    showNotification('تم نسخ النص بنجاح!');
+                })
+                .catch(err => {
+                    console.error('فشل النسخ: ', err);
+                    showNotification('فشل نسخ النص', 'error');
+                });
+        }
+        
+        // تبديل علامات التبويب
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // إزالة النشاط من جميع الأزرار والمحتويات
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // إضافة النشاط للزر والمحتوى المحدد
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+                
+                // تشغيل وظيفة التهيئة للتبويب النشط
+                if (tabId === 'textDecorator' && typeof initDecorator === 'function') {
+                    initDecorator();
+                }
+                if (tabId === 'emojiText' && typeof initEmojiSymbols === 'function') {
+                    initEmojiSymbols();
+                }
+                if (tabId === 'specialEffects' && typeof initSpecialSymbols === 'function') {
+                    initSpecialSymbols();
+                }
+                if (tabId === 'textRepeater' && typeof initRepeaterSymbols === 'function') {
+                    initRepeaterSymbols();
+                }
+                if (tabId === 'textTransformer' && typeof initTransformerSymbols === 'function') {
+                    initTransformerSymbols();
+                }
+                if (tabId === 'glitchText' && typeof initGlitchSymbols === 'function') {
+                    initGlitchSymbols();
+                }
+                if (tabId === 'encryption' && typeof initEncryptionSymbols === 'function') {
+                    initEncryptionSymbols();
+                }
+            });
+        });
+        
+        // ====================== قاعدة بيانات الرموز ======================
+        const specialSymbols = [
+            '✯', '★', '⌘', '☘', '☆', '✫', '✪', '❀', '✿', '⫷', '⫸', '⑅', '▷', '◁', 
+            '◉', '◍', '◎', '◐', '◑', '◒', '◓', '◔', '◕', '◈', '◊', '⎔', '☯', '☸', 
+            '✠', '❖', '✁', '✃', '✄', '⇜', '⇝', '⇞', '⇟', '⇠', '⇡', '⇢', '⇣', '⇦', 
+            '⇧', '⇨', '⇩', '⇪', '֎', '֍', '𓆧', '𓆤', '𓆣', '𓆡', '𓆟', '𓆉', '𓆌', 
+            '𓆏', '𓆙', '𓆝', '𓆈', '𓆃', '𓆂', '𓆀', '𓅿', '𓅪', '𓅬', '𓅯', '𓅰', 
+            '𓅾', '𓅨', '𓅣', '𓅟', '𓅚', '𓅓', '𓄅', '𓄆', '𓄇', '𓅂', '𓅃', '𓄄', 
+            '𓄃', '𓄂', '𓄁', '𓄀', '𓃴', '𓃵', '𓃷', '𓃾', '𓃿', '𓃬', '𓃲', '𓃥', 
+            '𓃱', '𓃟', '𓃰', '𓃝', '𓃯', '𓃘', '𓃮', '𓀡', '𓁺', '𓂻', '𓁹', '𓀬', 
+            '𐂃', '𓂉', '𐂊', '𓃒', '𓀿', '𓁻', '𓂂', '𓂇', '🦋', '𓂃', '𓁼', '𓂄', 
+            '𓁿', '𓂅', '𓂀', '𓂆', '𓂁', '⊶', '⊷', '⊱', '⊰', '⌨', '⌂', '⌁', '⌖', 
+            '⌑', '⌀', '⎻', '⎼', '⎽', '⎱', '⎰', 'ᣞ', 'ᣟ', 'ᣝ', 'ᣜ', 'ᣲ', 'ᣬ', 'ᣱ', 
+            'ᣫ', 'ᣰ', '❁', '❃', '❇', '❂', '✬', '✭', '✮', '✯', '❈', '❉', '☼', '♨', 
+            '☉', '☃', '♁', '☂', '☾', '☽', '❅', '❆', '⌹', '⌺', '⌻', '⌼', '⌽', '❦', 
+            '❧', 'ღ', '❥', '❣', '♡', '☄', '⚝', '༗', '།', '༏', '༐', '༑', '༘', '༙', 
+            '༓', '༕', '༖', '༞', '༝', '༟', '༜', '༛', '༚', '☠', '☢', '☣', '⚔', '⚒', 
+            '𖤐', '⚱', '➳', '➵', '➶', '➷', '➸', '➾', '➽', '➼', '➻', '➺', '➔', '➜', 
+            '➝', '➞', '➟', '➥', '➤', '➣', '➢', '➠', '➦', '➧', '➨', '➩', '➪', '➯', 
+            '➮', '➭', '➬', '➫', '➲', '➳', '☪', '𖣔'
+        ];
+        
+        // ====================== علامة التبويب: مكرر النصوص ======================
+        const repeatText = document.getElementById('repeatText');
+        const repeatCount = document.getElementById('repeatCount');
+        const repeatCountValue = document.getElementById('repeatCountValue');
+        const repeatCountDisplay = document.getElementById('repeatCountDisplay');
+        const separator = document.getElementById('separator');
+        const addLineBreak = document.getElementById('addLineBreak');
+        const addNumbers = document.getElementById('addNumbers');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const copyRepeatBtn = document.getElementById('copyRepeatBtn');
+        const clearRepeatBtn = document.getElementById('clearRepeatBtn');
+        const repeatResult = document.getElementById('repeatResult');
+        const repeaterSymbols = document.getElementById('repeaterSymbols');
+        
+        // تهيئة رموز مكرر النصوص
+        function initRepeaterSymbols() {
+            repeaterSymbols.innerHTML = '';
+            
+            const selectedSymbols = specialSymbols.slice(0, 30);
+            
+            selectedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = repeatText.value;
+                    repeatText.value = currentText + symbol;
+                });
+                
+                repeaterSymbols.appendChild(symbolBtn);
+            });
+        }
+        
+        // تحديث قيمة المنزلق
+        repeatCount.addEventListener('input', function() {
+            repeatCountValue.textContent = this.value;
+            repeatCountDisplay.textContent = this.value;
+        });
+        
+        // تكرار النص
+        repeatBtn.addEventListener('click', function() {
+            const text = repeatText.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص للتكرار', 'warning');
+                return;
+            }
+            
+            const count = parseInt(repeatCount.value);
+            const sep = separator.value === '\\n' ? '\n' : 
+                       separator.value === '\\n\\n' ? '\n\n' : 
+                       separator.value;
+            const lineBreak = addLineBreak.checked;
+            const numbers = addNumbers.checked;
+            
+            let result = '';
+            
+            for (let i = 1; i <= count; i++) {
+                let repeatedText = text;
+                
+                if (numbers) {
+                    repeatedText = `${i}. ${repeatedText}`;
+                }
+                
+                result += repeatedText;
+                
+                // إضافة فاصل
+                if (i < count) {
+                    result += sep;
+                    
+                    // إضافة سطر جديد بعد كل مجموعة
+                    if (lineBreak && i % 3 === 0) {
+                        result += '\n';
+                    }
+                }
+            }
+            
+            repeatResult.textContent = result;
+            showNotification(`تم تكرار النص ${count} مرة`);
+        });
+        
+        // نسخ نتيجة التكرار
+        copyRepeatBtn.addEventListener('click', function() {
+            copyToClipboard(repeatResult.textContent);
+        });
+        
+        // مسح مكرر النصوص
+        clearRepeatBtn.addEventListener('click', function() {
+            repeatText.value = '';
+            repeatResult.textContent = 'النتيجة ستظهر هنا بعد التكرار...';
+            showNotification('تم مسح النص', 'success');
+        });
+        
+        // ====================== علامة التبويب: محول النصوص ======================
+        const transformText = document.getElementById('transformText');
+        const transformBtn = document.getElementById('transformBtn');
+        const copyTransformBtn = document.getElementById('copyTransformBtn');
+        const clearTransformBtn = document.getElementById('clearTransformBtn');
+        const transformResult = document.getElementById('transformResult');
+        const transformOptions = document.querySelectorAll('.transform-btn');
+        const removeSpaces = document.getElementById('removeSpaces');
+        const removeDuplicate = document.getElementById('removeDuplicate');
+        const addSymbols = document.getElementById('addSymbols');
+        const transformerSymbols = document.getElementById('transformerSymbols');
+        
+        // تهيئة رموز محول النصوص
+        function initTransformerSymbols() {
+            transformerSymbols.innerHTML = '';
+            
+            const selectedSymbols = specialSymbols.slice(30, 60);
+            
+            selectedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = transformText.value;
+                    transformText.value = currentText + symbol;
+                });
+                
+                transformerSymbols.appendChild(symbolBtn);
+            });
+        }
+        
+        let selectedTransform = 'reverse';
+        
+        // تحديد خيار التحويل
+        transformOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                transformOptions.forEach(opt => opt.style.borderColor = 'var(--border)');
+                this.style.borderColor = 'var(--primary)';
+                selectedTransform = this.getAttribute('data-transform');
+            });
+        });
+        
+        // تحويل النص
+        transformBtn.addEventListener('click', function() {
+            let text = transformText.value;
+            
+            if (!text.trim()) {
+                showNotification('الرجاء إدخال نص للتحويل', 'warning');
+                return;
+            }
+            
+            // تطبيق التحويل الأساسي
+            switch(selectedTransform) {
+                case 'reverse':
+                    text = text.split('').reverse().join('');
+                    break;
+                case 'uppercase':
+                    text = text.toUpperCase();
+                    break;
+                case 'lowercase':
+                    text = text.toLowerCase();
+                    break;
+                case 'alternating':
+                    text = text.split('').map((char, i) => 
+                        i % 2 === 0 ? char.toUpperCase() : char.toLowerCase()
+                    ).join('');
+                    break;
+                case 'upsideDown':
+                    // محاكاة النص المقلوب
+                    const upsideDownMap = {
+                        'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ',
+                        'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+                        'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o',
+                        'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+                        'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ',
+                        'z': 'z', 'A': '∀', 'B': 'ᗺ', 'C': 'Ɔ', 'D': 'ᗡ',
+                        'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁', 'H': 'H', 'I': 'I',
+                        'J': 'ſ', 'K': 'Ʞ', 'L': '⅂', 'M': 'W', 'N': 'N',
+                        'O': 'O', 'P': 'Ԁ', 'Q': 'Ꝺ', 'R': 'ᴚ', 'S': 'S',
+                        'T': '⊥', 'U': 'Ո', 'V': 'Λ', 'W': 'M', 'X': 'X',
+                        'Y': '⅄', 'Z': 'Z'
+                    };
+                    
+                    text = text.split('').map(char => 
+                        upsideDownMap[char] || char
+                    ).reverse().join('');
+                    break;
+                case 'mirror':
+                    text = text + ' | ' + text.split('').reverse().join('');
+                    break;
+            }
+            
+            // تطبيق الخيارات الإضافية
+            if (removeSpaces.checked) {
+                text = text.replace(/\s+/g, '');
+            }
+            
+            if (removeDuplicate.checked) {
+                text = [...new Set(text.split(''))].join('');
+            }
+            
+            if (addSymbols.checked) {
+                const randomSymbol = specialSymbols[Math.floor(Math.random() * specialSymbols.length)];
+                text = randomSymbol + ' ' + text + ' ' + randomSymbol;
+            }
+            
+            transformResult.textContent = text;
+            showNotification('تم تحويل النص بنجاح');
+        });
+        
+        // نسخ نتيجة التحويل
+        copyTransformBtn.addEventListener('click', function() {
+            copyToClipboard(transformResult.textContent);
+        });
+        
+        // مسح محول النصوص
+        clearTransformBtn.addEventListener('click', function() {
+            transformText.value = '';
+            transformResult.textContent = 'النتيجة ستظهر هنا بعد التحويل...';
+            showNotification('تم مسح النص', 'success');
+        });
+        
+        // ====================== علامة التبويب: نص الإيموجي ======================
+        const emojiInput = document.getElementById('emojiInput');
+        const emojiType = document.getElementById('emojiType');
+        const emojiThickness = document.getElementById('emojiThickness');
+        const thicknessValue = document.getElementById('thicknessValue');
+        const thicknessDisplay = document.getElementById('thicknessDisplay');
+        const emojiPreview = document.getElementById('emojiPreview');
+        const generateEmojiBtn = document.getElementById('generateEmojiBtn');
+        const copyEmojiBtn = document.getElementById('copyEmojiBtn');
+        const randomEmojiBtn = document.getElementById('randomEmojiBtn');
+        const emojiWriterBtn = document.getElementById('emojiWriterBtn');
+        const emojiResult = document.getElementById('emojiResult');
+        const emojiQuickSymbols = document.getElementById('emojiQuickSymbols');
+        
+        // تهيئة رموز الإيموجي السريعة
+        function initEmojiSymbols() {
+            emojiQuickSymbols.innerHTML = '';
+            
+            // مجموعة مختارة من الإيموجي والرموز
+            const emojiSymbols = [
+                '😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😇',
+                '🙂', '🙃', '😉', '😌', '😍', '🥰', '😘', '😗', '😙', '😚',
+                '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🥸',
+                '🤩', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '☹️',
+                '😣', '😖', '😫', '😩', '🥺', '😢', '😭', '😤', '😠', '😡',
+                '🤬', '🤯', '😳', '🥵', '🥶', '😱', '😨', '😰', '😥', '😓',
+                '🤗', '🤔', '🤭', '🤫', '🤥', '😶', '😐', '😑', '😬', '🙄',
+                '😯', '😦', '😧', '😮', '😲', '🥱', '😴', '🤤', '😪', '😵',
+                '🤐', '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '🤠',
+                '😈', '👿', '👹', '👺', '🤡', '💩', '👻', '💀', '☠️', '👽',
+                '👾', '🤖', '🎃', '😺', '😸', '😹', '😻', '😼', '😽', '🙀',
+                '😿', '😾', '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼',
+                '🐨', '🐯', '🦁', '🐮', '🐷', '🐽', '🐸', '🐵', '🙈', '🙉',
+                '🙊', '🐒', '🐔', '🐧', '🐦', '🐤', '🐣', '🐥', '🦆', '🦅',
+                '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🪱', '🐛', '🦋',
+                '🐌', '🐞', '🐜', '🪰', '🪲', '🪳', '🐢', '🐍', '🦎', '🦖',
+                '🦕', '🐙', '🦑', '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬',
+                '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍', '🦧', '🐘',
+                '🦛', '🦏', '🐪', '🐫', '🦒', '🦘', '🐃', '🐂', '🐄', '🐎',
+                '🐖', '🐏', '🐑', '🦙', '🐐', '🦌', '🐕', '🐩', '🦮', '🐕‍🦺',
+                '🐈', '🐈‍⬛', '🪶', '🐓', '🦃', '🦤', '🦚', '🦜', '🦢', '🦩',
+                '🐇', '🦝', '🦨', '🦡', '🦫', '🦦', '🦥', '🐁', '🐀', '🐿️',
+                '🦔', '🍄', '🐾', '🦃', '🐉', '🐲', '🌵', '🎄', '🌲', '🌳',
+                '🌴', '🪵', '🌱', '🌿', '☘️', '🍀', '🎍', '🪴', '🎋', '🍃',
+                '🍂', '🍁', '🪺', '🪹', '🍇', '🍈', '🍉', '🍊', '🍋', '🍌',
+                '🍍', '🥭', '🍎', '🍏', '🍐', '🍑', '🍒', '🍓', '🫐', '🥝',
+                '🍅', '🫒', '🥥', '🥑', '🍆', '🥔', '🥕', '🌽', '🌶️', '🫑',
+                '🥒', '🥬', '🥦', '🧄', '🧅', '🍄', '🥜', '🫘', '🌰', '🍞',
+                '🥐', '🥖', '🫓', '🥨', '🥯', '🥞', '🧇', '🧀', '🍖', '🍗',
+                '🥩', '🥓', '🍔', '🍟', '🍕', '🌭', '🥪', '🌮', '🌯', '🫔',
+                '🥙', '🧆', '🥚', '🍳', '🥘', '🍲', '🫕', '🥣', '🥗', '🍿',
+                '🧈', '🧂', '🥫', '🍱', '🍘', '🍙', '🍚', '🍛', '🍜', '🍝',
+                '🍠', '🍢', '🍣', '🍤', '🍥', '🥮', '🍡', '🥟', '🥠', '🥡',
+                '🦀', '🦞', '🦐', '🦑', '🦪', '🍦', '🍧', '🍨', '🍩', '🍪',
+                '🎂', '🍰', '🧁', '🥧', '🍫', '🍬', '🍭', '🍮', '🍯', '🍼',
+                '🥛', '☕', '🫖', '🍵', '🍶', '🍾', '🍷', '🍸', '🍹', '🍺',
+                '🍻', '🥂', '🥃', '🫗', '🥤', '🧋', '🧃', '🧉', '🧊', '🥢',
+                '🍽️', '🍴', '🥄', '🔪', '🫙', '🏺', '🌍', '🌎', '🌏', '🌐',
+                '🗺️', '🗾', '🧭', '🏔️', '⛰️', '🌋', '🗻', '🏕️', '🏖️', '🏜️',
+                '🏝️', '🏞️', '🏟️', '🏛️', '🏗️', '🧱', '🪨', '🪵', '🛖', '🏘️',
+                '🏚️', '🏠', '🏡', '🏢', '🏣', '🏤', '🏥', '🏦', '🏨', '🏩',
+                '🏪', '🏫', '🏬', '🏭', '🏯', '🏰', '💒', '🗼', '🗽', '⛪',
+                '🕌', '🛕', '🕍', '⛩️', '🕋', '⛲', '⛺', '🌁', '🌃', '🏙️',
+                '🌄', '🌅', '🌆', '🌇', '🌉', '♨️', '🎠', '🎡', '🎢', '💈',
+                '🎪', '🚂', '🚃', '🚄', '🚅', '🚆', '🚇', '🚈', '🚉', '🚊',
+                '🚝', '🚞', '🚋', '🚌', '🚍', '🚎', '🚐', '🚑', '🚒', '🚓',
+                '🚔', '🚕', '🚖', '🚗', '🚘', '🚙', '🚚', '🚛', '🚜', '🏎️',
+                '🏍️', '🛵', '🚲', '🛴', '🛹', '🚏', '🛣️', '🛤️', '🛢️', '⛽',
+                '🚨', '🚥', '🚦', '🛑', '🚧', '⚓', '⛵', '🛶', '🚤', '🛳️',
+                '⛴️', '🛥️', '🚢', '✈️', '🛩️', '🛫', '🛬', '🪂', '💺', '🚁',
+                '🚟', '🚠', '🚡', '🛰️', '🚀', '🛸', '🎆', '🎇', '🧨', '✨',
+                '🎈', '🎉', '🎊', '🎋', '🎍', '🎎', '🎏', '🎐', '🎑', '🧧',
+                '🎀', '🎁', '🎫', '🎟️', '🎪', '🎭', '🖼️', '🎨', '🧵', '🪡',
+                '🧶', '🪢', '👓', '🕶️', '🥽', '🥼', '🦺', '👔', '👕', '👖',
+                '🧣', '🧤', '🧥', '🧦', '👗', '👘', '🥻', '🩱', '🩲', '🩳',
+                '👙', '👚', '👛', '👜', '👝', '🎒', '👞', '👟', '🥾', '🥿',
+                '👠', '👡', '🩰', '👢', '👑', '👒', '🎩', '🎓', '🧢', '⛑️',
+                '💄', '💍', '💼', '🩴'
+            ];
+            
+            // إضافة الرموز الخاصة
+            const combinedSymbols = [...emojiSymbols.slice(0, 50), ...specialSymbols.slice(0, 20)];
+            
+            combinedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = emojiInput.value;
+                    emojiInput.value = currentText + symbol;
+                    updateEmojiPreview();
+                });
+                
+                emojiQuickSymbols.appendChild(symbolBtn);
+            });
+        }
+        
+        // تحديث قيمة سمك الإيموجي
+        emojiThickness.addEventListener('input', function() {
+            thicknessValue.textContent = this.value;
+            thicknessDisplay.textContent = this.value;
+            
+            // تحديث معاينة الإيموجي
+            updateEmojiPreview();
+        });
+        
+        // تحديث نوع الإيموجي
+        emojiType.addEventListener('change', updateEmojiPreview);
+        emojiInput.addEventListener('input', updateEmojiPreview);
+        
+        // تحديث معاينة الإيموجي
+        function updateEmojiPreview() {
+            const text = emojiInput.value.trim() || 'نص';
+            const type = emojiType.value;
+            const thickness = parseInt(emojiThickness.value);
+            
+            // إنشاء إيموجي بناءً على النص والنوع
+            let emoji = '';
+            
+            if (type === 'faces') {
+                const faces = ['😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '🙂', '🙃'];
+                emoji = faces[Math.min(text.length, faces.length - 1)];
+            } else if (type === 'animals') {
+                const animals = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯'];
+                emoji = animals[Math.min(text.length, animals.length - 1)];
+            } else if (type === 'food') {
+                const foods = ['🍕', '🍔', '🍟', '🌭', '🍿', '🧁', '🍰', '🎂', '🍫', '🍭'];
+                emoji = foods[Math.min(text.length, foods.length - 1)];
+            } else if (type === 'activities') {
+                const activities = ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🎱', '🏓', '🏸', '🥊'];
+                emoji = activities[Math.min(text.length, activities.length - 1)];
+            } else if (type === 'travel') {
+                const travel = ['🚗', '🚕', '🚙', '🚌', '🚎', '🏎️', '🚓', '🚑', '🚒', '🚜'];
+                emoji = travel[Math.min(text.length, travel.length - 1)];
+            } else if (type === 'objects') {
+                const objects = ['💡', '🔦', '📱', '💻', '⌚', '📷', '🔑', '🎁', '✏️', '📚'];
+                emoji = objects[Math.min(text.length, objects.length - 1)];
+            } else if (type === 'symbols') {
+                const symbols = ['❤️', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️'];
+                emoji = symbols[Math.min(text.length, symbols.length - 1)];
+            } else if (type === 'flags') {
+                const flags = ['🏳️', '🏴', '🏁', '🚩', '🏳️‍🌈', '🏴‍☠️', '🇺🇳', '🇵🇸', '🇸🇦', '🇪🇬'];
+                emoji = flags[Math.min(text.length, flags.length - 1)];
+            } else if (type === 'custom') {
+                // كتابة بالإيموجي - تحويل كل حرف إلى إيموجي
+                emoji = text.split('').map(char => {
+                    if (char === ' ') return '   ';
+                    // محاولة مطابقة الحرف مع إيموجي
+                    const emojiMap = {
+                        'a': '🍎', 'b': '🐝', 'c': '🐱', 'd': '🐶', 'e': '🐘',
+                        'f': '🐟', 'g': '🦒', 'h': '🏠', 'i': '❄️', 'j': '🧃',
+                        'k': '🔑', 'l': '🦁', 'm': '🌙', 'n': '🌃', 'o': '🍊',
+                        'p': '🐧', 'q': '👑', 'r': '🌈', 's': '☀️', 't': '🌳',
+                        'u': '☂️', 'v': '✌️', 'w': '💧', 'x': '❌', 'y': '✌️',
+                        'z': '🦓', 'أ': '🕌', 'ب': '📚', 'ت': '🍎', 'ث': '👔',
+                        'ج': '🗺️', 'ح': '❤️', 'خ': '🌵', 'د': '🚪', 'ذ': '🦌',
+                        'ر': '☀️', 'ز': '🦁', 'س': '🌙', 'ش': '☀️', 'ص': '🗿',
+                        'ض': '🌍', 'ط': '🍎', 'ظ': '🌙', 'ع': '👁️', 'غ': '☁️',
+                        'ف': '🌸', 'ق': '👑', 'ك': '🔑', 'ل': '🦁', 'م': '🌙',
+                        'ن': '🔥', 'ه': '🏠', 'و': '🌹', 'ي': '🌟'
+                    };
+                    return emojiMap[char.toLowerCase()] || '❓';
+                }).join(' ');
+            }
+            
+            // تطبيق السمك
+            emojiPreview.innerHTML = emoji;
+            emojiPreview.style.fontSize = `${1 + thickness * 0.2}rem`;
+            emojiPreview.style.padding = `${thickness * 2}px`;
+        }
+        
+        // إنشاء نص الإيموجي
+        generateEmojiBtn.addEventListener('click', function() {
+            const text = emojiInput.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص', 'warning');
+                return;
+            }
+            
+            const type = emojiType.value;
+            const thickness = parseInt(emojiThickness.value);
+            
+            let emojiText = '';
+            
+            if (type === 'custom') {
+                // كتابة بالإيموجي - تحويل النص كاملاً
+                emojiText = text.split('').map(char => {
+                    if (char === ' ') return '   ';
+                    const emojiMap = {
+                        'a': '🍎', 'b': '🐝', 'c': '🐱', 'd': '🐶', 'e': '🐘',
+                        'f': '🐟', 'g': '🦒', 'h': '🏠', 'i': '❄️', 'j': '🧃',
+                        'k': '🔑', 'l': '🦁', 'm': '🌙', 'n': '🌃', 'o': '🍊',
+                        'p': '🐧', 'q': '👑', 'r': '🌈', 's': '☀️', 't': '🌳',
+                        'u': '☂️', 'v': '✌️', 'w': '💧', 'x': '❌', 'y': '✌️',
+                        'z': '🦓', 'أ': '🕌', 'ب': '📚', 'ت': '🍎', 'ث': '👔',
+                        'ج': '🗺️', 'ح': '❤️', 'خ': '🌵', 'د': '🚪', 'ذ': '🦌',
+                        'ر': '☀️', 'ز': '🦁', 'س': '🌙', 'ش': '☀️', 'ص': '🗿',
+                        'ض': '🌍', 'ط': '🍎', 'ظ': '🌙', 'ع': '👁️', 'غ': '☁️',
+                        'ف': '🌸', 'ق': '👑', 'ك': '🔑', 'ل': '🦁', 'م': '🌙',
+                        'ن': '🔥', 'ه': '🏠', 'و': '🌹', 'ي': '🌟'
+                    };
+                    return emojiMap[char.toLowerCase()] || '❓';
+                }).join(' ');
+            } else {
+                // إنشاء إيموجي متكرر بناءً على طول النص
+                const emojiCount = Math.max(1, Math.floor(text.length / 2));
+                
+                for (let i = 0; i < emojiCount; i++) {
+                    emojiText += emojiPreview.textContent;
+                    if (i < emojiCount - 1) emojiText += ' ';
+                }
+            }
+            
+            // تطبيق السمك
+            emojiResult.innerHTML = `<div style="font-size: ${1 + thickness * 0.3}rem; line-height: ${1.5 + thickness * 0.1}">${emojiText}</div>`;
+            showNotification('تم إنشاء نص الإيموجي بنجاح');
+        });
+        
+        // كتابة بالإيموجي
+        emojiWriterBtn.addEventListener('click', function() {
+            const text = emojiInput.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص', 'warning');
+                return;
+            }
+            
+            emojiType.value = 'custom';
+            updateEmojiPreview();
+            generateEmojiBtn.click();
+            showNotification('تم تحويل النص إلى كتابة بالإيموجي');
+        });
+        
+        // نسخ نص الإيموجي
+        copyEmojiBtn.addEventListener('click', function() {
+            copyToClipboard(emojiResult.textContent);
+        });
+        
+        // إيموجي عشوائي
+        randomEmojiBtn.addEventListener('click', function() {
+            const randomTexts = ['مرحبا', 'أهلا', 'سلام', 'تحية', 'وداعا', 'شكرا', 'مبروك', 'تهانينا', 'أحبك', 'نجاح'];
+            emojiInput.value = randomTexts[Math.floor(Math.random() * randomTexts.length)];
+            
+            const types = ['faces', 'animals', 'food', 'activities', 'travel', 'objects', 'symbols', 'flags', 'custom'];
+            emojiType.value = types[Math.floor(Math.random() * types.length)];
+            
+            emojiThickness.value = Math.floor(Math.random() * 10) + 1;
+            thicknessValue.textContent = emojiThickness.value;
+            thicknessDisplay.textContent = emojiThickness.value;
+            
+            updateEmojiPreview();
+            showNotification('تم إنشاء إيموجي عشوائي');
+        });
+        
+        // تهيئة معاينة الإيموجي
+        updateEmojiPreview();
+        
+        // ====================== علامة التبويب: نص معطّل ======================
+        const glitchInput = document.getElementById('glitchInput');
+        const glitchIntensity = document.getElementById('glitchIntensity');
+        const intensityValue = document.getElementById('intensityValue');
+        const intensityDisplay = document.getElementById('intensityDisplay');
+        const glitchUp = document.getElementById('glitchUp');
+        const glitchMiddle = document.getElementById('glitchMiddle');
+        const glitchDown = document.getElementById('glitchDown');
+        const glitchPreview = document.getElementById('glitchPreview');
+        const generateGlitchBtn = document.getElementById('generateGlitchBtn');
+        const copyGlitchBtn = document.getElementById('copyGlitchBtn');
+        const animateGlitchBtn = document.getElementById('animateGlitchBtn');
+        const glitchResult = document.getElementById('glitchResult');
+        const glitchSymbols = document.getElementById('glitchSymbols');
+        
+        // تهيئة رموز النص المعطّل
+        function initGlitchSymbols() {
+            glitchSymbols.innerHTML = '';
+            
+            const selectedSymbols = specialSymbols.slice(60, 90);
+            
+            selectedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = glitchInput.value;
+                    glitchInput.value = currentText + symbol;
+                    updateGlitchPreview();
+                });
+                
+                glitchSymbols.appendChild(symbolBtn);
+            });
+        }
+        
+        // تحديث قيمة شدة التعطيل
+        glitchIntensity.addEventListener('input', function() {
+            intensityValue.textContent = this.value;
+            intensityDisplay.textContent = this.value;
+            updateGlitchPreview();
+        });
+        
+        glitchInput.addEventListener('input', updateGlitchPreview);
+        
+        // تحديث معاينة النص المعطّل
+        function updateGlitchPreview() {
+            const text = glitchInput.value || 'نص';
+            const intensity = parseInt(glitchIntensity.value);
+            
+            glitchPreview.textContent = text;
+            glitchPreview.style.textShadow = `
+                ${intensity}px ${intensity}px 0 var(--accent),
+                -${intensity}px -${intensity}px 0 var(--success),
+                ${intensity}px -${intensity}px 0 var(--warning),
+                -${intensity}px ${intensity}px 0 var(--primary)
+            `;
+            glitchPreview.style.letterSpacing = `${intensity * 0.5}px`;
+        }
+        
+        // إنشاء النص المعطّل
+        generateGlitchBtn.addEventListener('click', function() {
+            let text = glitchInput.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص', 'warning');
+                return;
+            }
+            
+            const intensity = parseInt(glitchIntensity.value);
+            const up = glitchUp.checked;
+            const middle = glitchMiddle.checked;
+            const down = glitchDown.checked;
+            
+            // تطبيق تأثير التعطيل
+            let glitchText = '';
+            const glitchChars = ['!', '@', '#', '$', '%', '&', '*', '~', '?', '>', '<', '/', '\\', '|'];
+            
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                
+                // تطبيق التعطيل بناءً على الموضع
+                if ((up && i < text.length / 3) || 
+                    (middle && i >= text.length / 3 && i < 2 * text.length / 3) || 
+                    (down && i >= 2 * text.length / 3)) {
+                    
+                    // إضافة أحرف عشوائية
+                    if (Math.random() < intensity / 15) {
+                        char = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                    }
+                    
+                    // تغيير حجم الحرف
+                    if (Math.random() < intensity / 20) {
+                        char = Math.random() > 0.5 ? char.toUpperCase() : char.toLowerCase();
+                    }
+                }
+                
+                glitchText += char;
+            }
+            
+            // تطبيق التأثير البصري
+            const styles = `
+                font-weight: 800;
+                letter-spacing: ${intensity * 0.3}px;
+                color: var(--primary-dark);
+                text-shadow: 
+                    ${intensity}px ${intensity}px 0 var(--accent),
+                    -${intensity}px -${intensity}px 0 var(--success);
+            `;
+            
+            glitchResult.innerHTML = `<div style="${styles}">${glitchText}</div>`;
+            showNotification('تم إنشاء النص المعطّل بنجاح');
+        });
+        
+        // نسخ النص المعطّل
+        copyGlitchBtn.addEventListener('click', function() {
+            copyToClipboard(glitchResult.textContent);
+        });
+        
+        // تحريك النص المعطّل
+        let animationInterval;
+        animateGlitchBtn.addEventListener('click', function() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+                animateGlitchBtn.innerHTML = '<i class="fas fa-play"></i> تشغيل التحريك';
+                showNotification('تم إيقاف التحريك');
+            } else {
+                animateGlitchBtn.innerHTML = '<i class="fas fa-stop"></i> إيقاف التحريك';
+                
+                let counter = 0;
+                animationInterval = setInterval(() => {
+                    // تغيير شدة التعطيل عشوائياً
+                    const newIntensity = Math.floor(Math.random() * 10) + 1;
+                    glitchIntensity.value = newIntensity;
+                    intensityValue.textContent = newIntensity;
+                    intensityDisplay.textContent = newIntensity;
+                    
+                    // تحديث النتيجة
+                    generateGlitchBtn.click();
+                    
+                    counter++;
+                    if (counter > 20) { // إيقاف بعد 20 تكرار
+                        clearInterval(animationInterval);
+                        animationInterval = null;
+                        animateGlitchBtn.innerHTML = '<i class="fas fa-play"></i> تشغيل التحريك';
+                    }
+                }, 200);
+                
+                showNotification('تم تشغيل التحريك');
+            }
+        });
+        
+        // تهيئة معاينة النص المعطّل
+        updateGlitchPreview();
+        
+        // ====================== علامة التبويب: مزخرف النصوص ======================
+        const decoratorInput = document.getElementById('decoratorInput');
+        const stylesGrid = document.getElementById('stylesGrid');
+        const decoratorSymbols = document.getElementById('decoratorSymbols');
+        const generateDecoratorBtn = document.getElementById('generateDecoratorBtn');
+        const copyDecoratorBtn = document.getElementById('copyDecoratorBtn');
+        const clearDecoratorBtn = document.getElementById('clearDecoratorBtn');
+        const decoratorResult = document.getElementById('decoratorResult');
+        
+        // تهيئة رموز التزيين السريعة
+        function initDecoratorSymbols() {
+            decoratorSymbols.innerHTML = '';
+            
+            // عرض مجموعة مختارة من الرموز الخاصة
+            const selectedSymbols = specialSymbols.slice(90, 120);
+            
+            selectedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = decoratorInput.value;
+                    decoratorInput.value = currentText + symbol;
+                });
+                
+                decoratorSymbols.appendChild(symbolBtn);
+            });
+        }
+        
+        // تعريف أنماط التزيين
+        const decorationStyles = [
+            {
+                id: "style1",
+                name: "الخطوط المتقطعة",
+                sample: "A̸B̸C̸D̸",
+                transform: function(text) {
+                    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                    const styledChars = "A̸B̸C̸D̸E̸F̸G̸H̸I̸J̸K̸L̸M̸N̸O̸P̸Q̸R̸S̸T̸U̸V̸W̸X̸Y̸Z̸a̸b̸c̸d̸e̸f̸g̸h̸i̸j̸k̸l̸m̸n̸o̸p̸q̸r̸s̸t̸u̸v̸w̸x̸y̸z̸";
+                    
+                    let result = "";
+                    for (let char of text) {
+                        const index = chars.indexOf(char);
+                        result += index !== -1 ? styledChars[index] : char;
+                    }
+                    return result;
+                }
+            },
+            {
+                id: "style2",
+                name: "النمط العربي 1",
+                sample: "اۧبــِꦼــِ",
+                transform: function(text) {
+                    const arabicChars = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
+                    const styledArabic = "اۧ|بــِꦼــِ|تِـۦ۬ۥٰ۬ۦ۬ـ|ثِـ٭ۦٰ٭ۦ|ج|حٰ|خـۦٰ۫۬⸙ـٰٰٰٖـ|دِ|ذِ|ࢪ|زِ|سُ|شِـۦـہ|ص|ضُ|طٚ|ظِ|ـ؏ۦـ|غِ|فَ|قۧ|كٰ|ݪ|مۧ|نِ|ه|ؤꪇ|يُ".split("|");
+                    
+                    let result = "";
+                    for (let char of text) {
+                        const index = arabicChars.indexOf(char);
+                        result += index !== -1 ? styledArabic[index] : char;
+                    }
+                    return result;
+                }
+            },
+            {
+                id: "style3",
+                name: "النمط العربي 2",
+                sample: "اِۧبِۧتِۧ",
+                transform: function(text) {
+                    const arabicChars = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي";
+                    const styledArabic = "اِۧ|بِۧ|تِۧ|ثِۧ|جِۧ|حِۧ|خۧ͜|دِ|ذِۧ|رِۧﺮ|زِۧ|سِـ۫سِ|شِۧ|صِۧ|ضِۧ|طِۧ|ظِۧ|ـ؏ِۧ͜ـ|غِۧ|فِۧ|قِۧ|كِۧ|ݪ|مِۧـ۫ـمِۧ|نِۧ|هِۧ|وِۧꪇ|يِۧ".split("|");
+                    
+                    let result = "";
+                    for (let char of text) {
+                        const index = arabicChars.indexOf(char);
+                        result += index !== -1 ? styledArabic[index] : char;
+                    }
+                    return result;
+                }
+            },
+            {
+                id: "style4",
+                name: "النمط الغامق",
+                sample: "𝗔𝗕𝗖𝗗",
+                transform: function(text) {
+                    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                    const styledChars = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇";
+                    
+                    let result = "";
+                    for (let char of text) {
+                        const index = chars.indexOf(char);
+                        result += index !== -1 ? styledChars[index] : char;
+                    }
+                    return result;
+                }
+            },
+            {
+                id: "style5",
+                name: "النمط المائل",
+                sample: "𝘈𝘉𝘊𝘉",
+                transform: function(text) {
+                    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                    const styledChars = "𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻";
+                    
+                    let result = "";
+                    for (let char of text) {
+                        const index = chars.indexOf(char);
+                        result += index !== -1 ? styledChars[index] : char;
+                    }
+                    return result;
+                }
+            },
+            {
+                id: "style6",
+                name: "النمط المرتفع",
+                sample: "ᵃᵇᶜᵈ",
+                transform: function(text) {
+                    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-=";
+                    const styledChars = "ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖᵠʳˢᵗᵘᵛʷˣʸᶻᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᵠᴿˢᵀᵁⱽᵂˣʸᶿ⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼";
+                    
+                    let result = "";
+                    for (let char of text) {
+                        const index = chars.indexOf(char);
+                        result += index !== -1 ? styledChars[index] : char;
+                    }
+                    return result;
+                }
+            },
+            {
+                id: "style7",
+                name: "النمط بالرموز",
+                sample: "✯A★l☆a✫m",
+                transform: function(text) {
+                    let result = "";
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+                        if (char === ' ') {
+                            result += ' ';
+                        } else {
+                            const symbol = specialSymbols[i % specialSymbols.length];
+                            result += symbol + char;
+                        }
+                    }
+                    return result;
+                }
+            }
+        ];
+        
+        let selectedDecorationStyle = decorationStyles[0];
+        
+        // تهيئة أنماط التزيين
+        function initDecorator() {
+            stylesGrid.innerHTML = '';
+            
+            decorationStyles.forEach(style => {
+                const styleElement = document.createElement('div');
+                styleElement.className = 'transform-btn';
+                styleElement.setAttribute('data-style', style.id);
+                styleElement.innerHTML = `
+                    <i class="fas fa-font"></i>
+                    <span>${style.name}</span>
+                    <small>${style.sample}</small>
+                `;
+                
+                styleElement.addEventListener('click', function() {
+                    document.querySelectorAll('.transform-btn[data-style]').forEach(btn => {
+                        btn.style.borderColor = 'var(--border)';
+                    });
+                    
+                    this.style.borderColor = 'var(--primary)';
+                    selectedDecorationStyle = style;
+                });
+                
+                stylesGrid.appendChild(styleElement);
+            });
+            
+            // تفعيل النمط الأول
+            document.querySelector('.transform-btn[data-style]').style.borderColor = 'var(--primary)';
+            
+            // تهيئة الرموز السريعة
+            initDecoratorSymbols();
+        }
+        
+        // توليد النص المزخرف
+        generateDecoratorBtn.addEventListener('click', function() {
+            const text = decoratorInput.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص للتزيين', 'warning');
+                return;
+            }
+            
+            const decoratedText = selectedDecorationStyle.transform(text);
+            decoratorResult.textContent = decoratedText;
+            showNotification('تم تزيين النص بنجاح');
+        });
+        
+        // نسخ النص المزخرف
+        copyDecoratorBtn.addEventListener('click', function() {
+            copyToClipboard(decoratorResult.textContent);
+        });
+        
+        // مسح مزخرف النصوص
+        clearDecoratorBtn.addEventListener('click', function() {
+            decoratorInput.value = '';
+            decoratorResult.textContent = 'النص المزخرف سيظهر هنا...';
+            showNotification('تم مسح النص', 'success');
+        });
+        
+        // ====================== علامة التبويب: تأثيرات خاصة ======================
+        const specialInput = document.getElementById('specialInput');
+        const specialPreview = document.getElementById('specialPreview');
+        const specialSymbolsContainer = document.getElementById('specialSymbols');
+        const generateSpecialBtn = document.getElementById('generateSpecialBtn');
+        const copySpecialBtn = document.getElementById('copySpecialBtn');
+        const clearSpecialBtn = document.getElementById('clearSpecialBtn');
+        const specialResult = document.getElementById('specialResult');
+        const specialEffects = document.querySelectorAll('.transform-btn[data-effect]');
+        
+        let selectedEffect = 'zalgotext';
+        
+        // تهيئة رموز التزيين الخاصة
+        function initSpecialSymbols() {
+            specialSymbolsContainer.innerHTML = '';
+            
+            // عرض مجموعة مختارة من الرموز الخاصة
+            const selectedSymbols = specialSymbols.slice(120, 150);
+            
+            selectedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = specialInput.value;
+                    specialInput.value = currentText + symbol;
+                    updateSpecialPreview();
+                });
+                
+                specialSymbolsContainer.appendChild(symbolBtn);
+            });
+        }
+        
+        // تحديث معاينة التأثير الخاص
+        function updateSpecialPreview() {
+            const text = specialInput.value || 'نص';
+            specialPreview.textContent = text;
+        }
+        
+        specialInput.addEventListener('input', updateSpecialPreview);
+        
+        // تحديد التأثير المطلوب
+        specialEffects.forEach(effect => {
+            effect.addEventListener('click', function() {
+                specialEffects.forEach(opt => opt.style.borderColor = 'var(--border)');
+                this.style.borderColor = 'var(--primary)';
+                selectedEffect = this.getAttribute('data-effect');
+            });
+        });
+        
+        // تأثير نص زالغو (Zalgo text)
+        function generateZalgoText(text) {
+            // أحرف زالغو (علامات ترقيم خاصة)
+            const zalgoUp = [
+                '\u030d', '\u030e', '\u0304', '\u0305', '\u033f', '\u0311', '\u0306', '\u0310',
+                '\u0352', '\u0357', '\u0351', '\u0307', '\u0308', '\u030a', '\u0342', '\u0343',
+                '\u0344', '\u034a', '\u034b', '\u034c', '\u0303', '\u0302', '\u030c', '\u0350',
+                '\u0300', '\u0301', '\u030b', '\u030f', '\u0312', '\u0313', '\u0314', '\u033d',
+                '\u0309', '\u0363', '\u0364', '\u0365', '\u0366', '\u0367', '\u0368', '\u0369'
+            ];
+            
+            const zalgoMid = [
+                '\u0315', '\u031b', '\u0340', '\u0341', '\u0358', '\u0321', '\u0322', '\u0327',
+                '\u0328', '\u0334', '\u0335', '\u0336', '\u034f', '\u035c', '\u035d', '\u035e',
+                '\u035f', '\u0360', '\u0362', '\u0338', '\u0337', '\u0361', '\u0489'
+            ];
+            
+            const zalgoDown = [
+                '\u0316', '\u0317', '\u0318', '\u0319', '\u031c', '\u031d', '\u031e', '\u031f',
+                '\u0320', '\u0324', '\u0325', '\u0326', '\u0329', '\u032a', '\u032b', '\u032c',
+                '\u032d', '\u032e', '\u032f', '\u0330', '\u0331', '\u0332', '\u0333', '\u0339',
+                '\u033a', '\u033b', '\u033c', '\u0345', '\u0347', '\u0348', '\u0349', '\u034d',
+                '\u034e', '\u0353', '\u0354', '\u0355', '\u0356', '\u0359', '\u035a', '\u035b'
+            ];
+            
+            let result = '';
+            
+            for (let char of text) {
+                result += char;
+                
+                // إضافة أحرف زالغو عشوائية
+                const numUp = Math.floor(Math.random() * 3);
+                const numMid = Math.floor(Math.random() * 2);
+                const numDown = Math.floor(Math.random() * 3);
+                
+                for (let i = 0; i < numUp; i++) {
+                    result += zalgoUp[Math.floor(Math.random() * zalgoUp.length)];
+                }
+                
+                for (let i = 0; i < numMid; i++) {
+                    result += zalgoMid[Math.floor(Math.random() * zalgoMid.length)];
+                }
+                
+                for (let i = 0; i < numDown; i++) {
+                    result += zalgoDown[Math.floor(Math.random() * zalgoDown.length)];
+                }
+            }
+            
+            return result;
+        }
+        
+        // تأثير إطار بالرموز
+        function generateSymbolBorder(text) {
+            const borderSymbols = ['✯', '★', '☆', '✫', '✪', '❀', '✿', '◈', '◉', '☯'];
+            const borderSymbol = borderSymbols[Math.floor(Math.random() * borderSymbols.length)];
+            
+            const lines = text.split('\n');
+            const maxLength = Math.max(...lines.map(line => line.length));
+            
+            let result = '';
+            
+            // الخط العلوي
+            result += borderSymbol.repeat(maxLength + 4) + '\n';
+            
+            // النص مع الإطار
+            for (let line of lines) {
+                const padding = ' '.repeat(maxLength - line.length);
+                result += `${borderSymbol} ${line}${padding} ${borderSymbol}\n`;
+            }
+            
+            // الخط السفلي
+            result += borderSymbol.repeat(maxLength + 4);
+            
+            return result;
+        }
+        
+        // تأثير نص مائل
+        function generateDiagonalText(text) {
+            let result = '';
+            const lines = text.split('\n');
+            
+            for (let line of lines) {
+                for (let i = 0; i < line.length; i++) {
+                    result += ' '.repeat(i) + line[i] + '\n';
+                }
+                result += '\n';
+            }
+            
+            return result;
+        }
+        
+        // تأثير نص مزدوج
+        function generateDoubleText(text) {
+            let result = '';
+            
+            for (let char of text) {
+                if (char === ' ') {
+                    result += '  ';
+                } else {
+                    result += char + char;
+                }
+            }
+            
+            return result;
+        }
+        
+        // تأثير فن ASCII
+        function generateAsciiArt(text) {
+            const asciiMap = {
+                'A': '  ███  \n █████ \n██   ██\n███████\n██   ██\n██   ██',
+                'B': '█████  \n██  ██ \n█████  \n██  ██ \n██  ██ \n█████  ',
+                'C': ' █████ \n██   ██\n██     \n██     \n██   ██\n █████ ',
+                'a': '       \n  ███  \n █████ \n██   ██\n██   ██\n █████ ',
+                'l': '██     \n██     \n██     \n██     \n██     \n███████',
+                'm': '       \n███ ███\n██ █ ██\n██   ██\n██   ██\n██   ██',
+                'd': '     ██\n    ███\n   ████\n  ██ ██\n ██  ██\n███████',
+                'r': '       \n███    \n████   \n██ ██  \n██  ██ \n██   ██',
+                't': '   ███  \n   ██   \n █████  \n   ██   \n   ██   \n   ███  ',
+                'o': '       \n  ███  \n █████ \n██   ██\n██   ██\n █████ ',
+                'ن': '██   ██\n███  ██\n████ ██\n██ ████\n██  ███\n██   ██',
+                'ص': ' █████ \n██   ██\n███████\n██   ██\n██   ██\n █████ '
+            };
+            
+            let result = '';
+            
+            for (let char of text.toUpperCase()) {
+                if (asciiMap[char]) {
+                    const lines = asciiMap[char].split('\n');
+                    
+                    if (result === '') {
+                        for (let i = 0; i < lines.length; i++) {
+                            result += lines[i] + '\n';
+                        }
+                    } else {
+                        const currentLines = result.trim().split('\n');
+                        result = '';
+                        
+                        for (let i = 0; i < Math.max(lines.length, currentLines.length); i++) {
+                            const currentLine = currentLines[i] || '';
+                            const newLine = lines[i] || '';
+                            result += currentLine + '   ' + newLine + '\n';
+                        }
+                    }
+                }
+            }
+            
+            return result || "فن ASCII غير متاح لهذا النص";
+        }
+        
+        // تأثير نص قوس قزح
+        function generateRainbowText(text) {
+            const colors = ['#ff0000', '#ff9900', '#ffff00', '#00ff00', '#0099ff', '#6600ff', '#ff00ff'];
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const color = colors[i % colors.length];
+                result += `<span style="color: ${color}">${text[i]}</span>`;
+            }
+            
+            return result;
+        }
+        
+        // إنشاء التأثير الخاص
+        generateSpecialBtn.addEventListener('click', function() {
+            const text = specialInput.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص', 'warning');
+                return;
+            }
+            
+            let result = '';
+            
+            switch(selectedEffect) {
+                case 'zalgotext':
+                    result = generateZalgoText(text);
+                    break;
+                case 'symbolBorder':
+                    result = generateSymbolBorder(text);
+                    break;
+                case 'diagonal':
+                    result = generateDiagonalText(text);
+                    break;
+                case 'doubleText':
+                    result = generateDoubleText(text);
+                    break;
+                case 'asciiArt':
+                    result = generateAsciiArt(text);
+                    break;
+                case 'rainbow':
+                    result = generateRainbowText(text);
+                    specialResult.innerHTML = result;
+                    showNotification('تم إنشاء نص قوس قزح بنجاح');
+                    return;
+            }
+            
+            specialResult.textContent = result;
+            showNotification(`تم إنشاء التأثير "${selectedEffect}" بنجاح`);
+        });
+        
+        // نسخ النص الخاص
+        copySpecialBtn.addEventListener('click', function() {
+            if (selectedEffect === 'rainbow') {
+                copyToClipboard(specialResult.textContent);
+            } else {
+                copyToClipboard(specialResult.textContent);
+            }
+        });
+        
+        // مسح التأثيرات الخاصة
+        clearSpecialBtn.addEventListener('click', function() {
+            specialInput.value = '';
+            specialResult.textContent = 'النص الخاص سيظهر هنا...';
+            showNotification('تم مسح النص', 'success');
+        });
+        
+        // تهيئة معاينة التأثير الخاص
+        updateSpecialPreview();
+        
+        // ====================== علامة التبويب: التشفير ======================
+        const encryptionText = document.getElementById('encryptionText');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const decryptBtn = document.getElementById('decryptBtn');
+        const copyEncryptionBtn = document.getElementById('copyEncryptionBtn');
+        const clearEncryptionBtn = document.getElementById('clearEncryptionBtn');
+        const encryptionResult = document.getElementById('encryptionResult');
+        const encryptionOptions = document.querySelectorAll('.encryption-btn');
+        const encryptionSettings = document.getElementById('encryptionSettings');
+        const caesarSettings = document.getElementById('caesarSettings');
+        const vigenereSettings = document.getElementById('vigenereSettings');
+        const morseSettings = document.getElementById('morseSettings');
+        const caesarShift = document.getElementById('caesarShift');
+        const vigenereKey = document.getElementById('vigenereKey');
+        const morseSeparator = document.getElementById('morseSeparator');
+        const morseSound = document.getElementById('morseSound');
+        const encryptionQuickSymbols = document.getElementById('encryptionQuickSymbols');
+        
+        // تهيئة رموز التشفير السريعة
+        function initEncryptionSymbols() {
+            encryptionQuickSymbols.innerHTML = '';
+            
+            const selectedSymbols = specialSymbols.slice(150, 180);
+            
+            selectedSymbols.forEach(symbol => {
+                const symbolBtn = document.createElement('button');
+                symbolBtn.className = 'symbol-btn';
+                symbolBtn.textContent = symbol;
+                symbolBtn.title = symbol;
+                
+                symbolBtn.addEventListener('click', function() {
+                    const currentText = encryptionText.value;
+                    encryptionText.value = currentText + symbol;
+                });
+                
+                encryptionQuickSymbols.appendChild(symbolBtn);
+            });
+        }
+        
+        let selectedEncryption = 'caesar';
+        
+        // تحديد خيار التشفير
+        encryptionOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                encryptionOptions.forEach(opt => opt.style.borderColor = 'var(--border)');
+                this.style.borderColor = 'var(--primary)';
+                selectedEncryption = this.getAttribute('data-encryption');
+                
+                // إظهار إعدادات التشفير المناسبة
+                document.querySelectorAll('.encryption-setting').forEach(setting => {
+                    setting.style.display = 'none';
+                });
+                
+                if (selectedEncryption === 'caesar') {
+                    caesarSettings.style.display = 'block';
+                } else if (selectedEncryption === 'vigenere') {
+                    vigenereSettings.style.display = 'block';
+                } else if (selectedEncryption === 'morse') {
+                    morseSettings.style.display = 'block';
+                }
+            });
+        });
+        
+        // تشفير قيصر (Caesar Cipher)
+        function caesarCipher(text, shift, decrypt = false) {
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                
+                if (char.match(/[a-z]/i)) {
+                    const code = text.charCodeAt(i);
+                    
+                    // الحروف الإنجليزية الكبيرة
+                    if (code >= 65 && code <= 90) {
+                        let newCode;
+                        if (decrypt) {
+                            newCode = ((code - 65 - shift + 26) % 26) + 65;
+                        } else {
+                            newCode = ((code - 65 + shift) % 26) + 65;
+                        }
+                        char = String.fromCharCode(newCode);
+                    }
+                    // الحروف الإنجليزية الصغيرة
+                    else if (code >= 97 && code <= 122) {
+                        let newCode;
+                        if (decrypt) {
+                            newCode = ((code - 97 - shift + 26) % 26) + 97;
+                        } else {
+                            newCode = ((code - 97 + shift) % 26) + 97;
+                        }
+                        char = String.fromCharCode(newCode);
+                    }
+                }
+                // الحروف العربية
+                else if (char.match(/[\u0600-\u06FF]/)) {
+                    const arabicChars = 'ابتثجحخدذرزسشصضطظعغفقكلمنهوي';
+                    const index = arabicChars.indexOf(char);
+                    
+                    if (index !== -1) {
+                        let newIndex;
+                        if (decrypt) {
+                            newIndex = (index - shift + arabicChars.length) % arabicChars.length;
+                        } else {
+                            newIndex = (index + shift) % arabicChars.length;
+                        }
+                        char = arabicChars[newIndex];
+                    }
+                }
+                
+                result += char;
+            }
+            
+            return result;
+        }
+        
+        // تشفير أتباش (Atbash Cipher)
+        function atbashCipher(text) {
+            let result = '';
+            const englishMap = {
+                'a': 'z', 'b': 'y', 'c': 'x', 'd': 'w', 'e': 'v',
+                'f': 'u', 'g': 't', 'h': 's', 'i': 'r', 'j': 'q',
+                'k': 'p', 'l': 'o', 'm': 'n', 'n': 'm', 'o': 'l',
+                'p': 'k', 'q': 'j', 'r': 'i', 's': 'h', 't': 'g',
+                'u': 'f', 'v': 'e', 'w': 'd', 'x': 'c', 'y': 'b',
+                'z': 'a', 'A': 'Z', 'B': 'Y', 'C': 'X', 'D': 'W',
+                'E': 'V', 'F': 'U', 'G': 'T', 'H': 'S', 'I': 'R',
+                'J': 'Q', 'K': 'P', 'L': 'O', 'M': 'N', 'N': 'M',
+                'O': 'L', 'P': 'K', 'Q': 'J', 'R': 'I', 'S': 'H',
+                'T': 'G', 'U': 'F', 'V': 'E', 'W': 'D', 'X': 'C',
+                'Y': 'B', 'Z': 'A'
+            };
+            
+            const arabicMap = {
+                'ا': 'ي', 'ب': 'ه', 'ت': 'و', 'ث': 'ن', 'ج': 'م',
+                'ح': 'ل', 'خ': 'ك', 'د': 'ق', 'ذ': 'ف', 'ر': 'غ',
+                'ز': 'ع', 'س': 'ظ', 'ش': 'ط', 'ص': 'ض', 'ض': 'ص',
+                'ط': 'ش', 'ظ': 'س', 'ع': 'ز', 'غ': 'ر', 'ف': 'ذ',
+                'ق': 'د', 'ك': 'خ', 'ل': 'ح', 'م': 'ج', 'ن': 'ث',
+                'ه': 'ب', 'و': 'ت', 'ي': 'ا'
+            };
+            
+            for (let char of text) {
+                if (englishMap[char]) {
+                    result += englishMap[char];
+                } else if (arabicMap[char]) {
+                    result += arabicMap[char];
+                } else {
+                    result += char;
+                }
+            }
+            
+            return result;
+        }
+        
+        // تشفير Base64
+        function base64Cipher(text, decrypt = false) {
+            if (decrypt) {
+                try {
+                    return atob(text);
+                } catch (e) {
+                    return "خطأ: النص ليس بصيغة Base64 صحيحة";
+                }
+            } else {
+                return btoa(text);
+            }
+        }
+        
+        // تشفير ROT13
+        function rot13Cipher(text) {
+            return caesarCipher(text, 13);
+        }
+        
+        // تشفير فيجنير (Vigenère Cipher)
+        function vigenereCipher(text, key, decrypt = false) {
+            let result = '';
+            let keyIndex = 0;
+            
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                
+                if (char.match(/[a-z]/i)) {
+                    const code = text.charCodeAt(i);
+                    const keyChar = key[keyIndex % key.length].toUpperCase();
+                    const keyShift = keyChar.charCodeAt(0) - 65;
+                    
+                    // الحروف الإنجليزية الكبيرة
+                    if (code >= 65 && code <= 90) {
+                        let newCode;
+                        if (decrypt) {
+                            newCode = ((code - 65 - keyShift + 26) % 26) + 65;
+                        } else {
+                            newCode = ((code - 65 + keyShift) % 26) + 65;
+                        }
+                        char = String.fromCharCode(newCode);
+                        keyIndex++;
+                    }
+                    // الحروف الإنجليزية الصغيرة
+                    else if (code >= 97 && code <= 122) {
+                        let newCode;
+                        if (decrypt) {
+                            newCode = ((code - 97 - keyShift + 26) % 26) + 97;
+                        } else {
+                            newCode = ((code - 97 + keyShift) % 26) + 97;
+                        }
+                        char = String.fromCharCode(newCode);
+                        keyIndex++;
+                    }
+                }
+                
+                result += char;
+            }
+            
+            return result;
+        }
+        
+        // تشفير مورس (Morse Code)
+        function morseCipher(text, decrypt = false) {
+            const morseCode = {
+                'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
+                'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+                'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+                'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+                'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+                'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--',
+                '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+                '9': '----.', ' ': '/', '.': '.-.-.-', ',': '--..--', '?': '..--..',
+                "'": '.----.', '!': '-.-.--', '/': '-..-.', '(': '-.--.', ')': '-.--.-',
+                '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-', '+': '.-.-.',
+                '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.',
+                'ا': '.-', 'ب': '-...', 'ت': '-', 'ث': '-.-.', 'ج': '.---',
+                'ح': '....', 'خ': '---', 'د': '-..', 'ذ': '--..', 'ر': '.-.',
+                'ز': '--...', 'س': '...', 'ش': '----', 'ص': '.--.', 'ض': '..-.',
+                'ط': '..-', 'ظ': '...-', 'ع': '.-.-', 'غ': '--.', 'ف': '..-.',
+                'ق': '--.-', 'ك': '-.-', 'ل': '.-..', 'م': '--', 'ن': '-.',
+                'ه': '.....', 'و': '.--', 'ي': '..'
+            };
+            
+            if (decrypt) {
+                // فك تشفير مورس
+                const reverseMorse = {};
+                for (const [key, value] of Object.entries(morseCode)) {
+                    reverseMorse[value] = key;
+                }
+                
+                const separator = morseSeparator.checked ? ' ' : '';
+                const words = text.split('/');
+                let result = '';
+                
+                for (let word of words) {
+                    const letters = word.trim().split(separator || ' ');
+                    for (let letter of letters) {
+                        if (reverseMorse[letter]) {
+                            result += reverseMorse[letter];
+                        } else if (letter) {
+                            result += '?';
+                        }
+                    }
+                    result += ' ';
+                }
+                
+                return result.trim();
+            } else {
+                // تشفير إلى مورس
+                let result = '';
+                const separator = morseSeparator.checked ? ' ' : '';
+                
+                for (let char of text.toUpperCase()) {
+                    if (morseCode[char]) {
+                        result += morseCode[char] + separator;
+                    } else if (char === ' ') {
+                        result += '/ ';
+                    } else {
+                        result += char + separator;
+                    }
+                }
+                
+                return result.trim();
+            }
+        }
+        
+        // تشفير النص
+        encryptBtn.addEventListener('click', function() {
+            const text = encryptionText.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص للتشفير', 'warning');
+                return;
+            }
+            
+            let result = '';
+            
+            switch(selectedEncryption) {
+                case 'caesar':
+                    const shift = parseInt(caesarShift.value);
+                    result = caesarCipher(text, shift);
+                    break;
+                case 'atbash':
+                    result = atbashCipher(text);
+                    break;
+                case 'base64':
+                    result = base64Cipher(text);
+                    break;
+                case 'rot13':
+                    result = rot13Cipher(text);
+                    break;
+                case 'vigenere':
+                    const key = vigenereKey.value.trim() || 'SECRET';
+                    result = vigenereCipher(text, key);
+                    break;
+                case 'morse':
+                    result = morseCipher(text);
+                    break;
+            }
+            
+            encryptionResult.textContent = result;
+            showNotification(`تم تشفير النص باستخدام ${selectedEncryption}`, 'success');
+        });
+        
+        // فك تشفير النص
+        decryptBtn.addEventListener('click', function() {
+            const text = encryptionText.value.trim();
+            if (!text) {
+                showNotification('الرجاء إدخال نص لفك التشفير', 'warning');
+                return;
+            }
+            
+            let result = '';
+            
+            switch(selectedEncryption) {
+                case 'caesar':
+                    const shift = parseInt(caesarShift.value);
+                    result = caesarCipher(text, shift, true);
+                    break;
+                case 'atbash':
+                    // Atbash هو نفس التشفير وفك التشفير
+                    result = atbashCipher(text);
+                    break;
+                case 'base64':
+                    result = base64Cipher(text, true);
+                    break;
+                case 'rot13':
+                    // ROT13 هو نفس التشفير وفك التشفير
+                    result = rot13Cipher(text);
+                    break;
+                case 'vigenere':
+                    const key = vigenereKey.value.trim() || 'SECRET';
+                    result = vigenereCipher(text, key, true);
+                    break;
+                case 'morse':
+                    result = morseCipher(text, true);
+                    break;
+            }
+            
+            encryptionResult.textContent = result;
+            showNotification(`تم فك تشفير النص باستخدام ${selectedEncryption}`, 'success');
+        });
+        
+        // نسخ نتيجة التشفير
+        copyEncryptionBtn.addEventListener('click', function() {
+            copyToClipboard(encryptionResult.textContent);
+        });
+        
+        // مسح التشفير
+        clearEncryptionBtn.addEventListener('click', function() {
+            encryptionText.value = '';
+            encryptionResult.textContent = 'النص المشفر أو المفكوك سيظهر هنا...';
+            showNotification('تم مسح النص', 'success');
+        });
+        
+        // ====================== تهيئة الصفحة عند التحميل ======================
+        document.addEventListener('DOMContentLoaded', function() {
+            // تشغيل وظائف المعاينة الأولية
+            updateEmojiPreview();
+            updateGlitchPreview();
+            updateSpecialPreview();
+            
+            // تهيئة الرموز السريعة
+            initEmojiSymbols();
+            initDecorator();
+            initSpecialSymbols();
+            initRepeaterSymbols();
+            initTransformerSymbols();
+            initGlitchSymbols();
+            initEncryptionSymbols();
+            
+            // تفعيل التأثير الأول
+            document.querySelector('.transform-btn[data-effect]').style.borderColor = 'var(--primary)';
+            document.querySelector('.encryption-btn').style.borderColor = 'var(--primary)';
+            
+            // إظهار إعدادات قيصر كإعداد افتراضي
+            caesarSettings.style.display = 'block';
+            
+            showNotification('مرحباً بك في موقع النصوص المميز!', 'success');
+        });
+    </script>
+</body>
+</html>
